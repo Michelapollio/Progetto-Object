@@ -1,0 +1,17 @@
+@startuml GalleriaFoto
+class Utente{
+    Integer iduser
+    String nome
+    String cognome
+    String email
+    String password
+}
+
+class Foto{
+    Integer IdFoto
+    Integer IdDispositivo
+    Integer IdOwner
+    Boolean Stato
+}
+
+@enduml
