@@ -12,10 +12,8 @@ public class Foto {
     private int IdDispositivo;
     Utente utente;
 
-    public Foto(int idfoto, Boolean stato, Date data, int idUser, int idDispositivo){
+    public Foto(int idfoto, int idUser, int idDispositivo){
         this.idfoto = idfoto;
-        this.stato = stato;
-        this.dataScatto = data;
         this.idUser = idUser;
         this.IdDispositivo = idDispositivo;
     }

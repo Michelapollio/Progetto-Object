@@ -2,9 +2,12 @@ package ImplPostgresDAO;
 
 import DAO.FotoDAO;
 
+import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 import DBConnection.ConnessioneDB;
+import MODEL.Foto;
 
 public class FotoPostgressDAO implements FotoDAO {
 
@@ -133,6 +136,27 @@ public class FotoPostgressDAO implements FotoDAO {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Foto> getAlbumFoto(int idalbum) throws SQLException {
+        ArrayList<Foto> fotolist = new ArrayList<>();
+
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo from foto f INNER JOIN fotoalbum fa on f.idfoto = fa.idfoto where fa.idalbum = ?");
+        stmt.setInt(1, idalbum);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()){
+            int idfoto = rs.getInt("idfoto");
+            int iduser = rs.getInt("idutente");
+            int dispositivo = rs.getInt("iddispositivo");
+
+            Foto foto1 = new Foto(idfoto, iduser, dispositivo);
+
+            fotolist.add(foto1);
+        }
+        return fotolist;
     }
 
 

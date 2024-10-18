@@ -14,4 +14,6 @@ public interface AlbumDAO {
 
     public ArrayList<String> getUserAlbums(int idUtente) throws SQLException;
 
+    public int getIdAlbum(String nome, int idowner) throws SQLException;
+
 }

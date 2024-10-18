@@ -2,6 +2,7 @@ package GUI;
 
 import CONTROLLER.Controller;
 import ImplPostgresDAO.AlbumPostgressDAO;
+import MODEL.Utente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class NewAlbumCreation extends JFrame {
     private JComboBox<String> visibilityBox;
     Controller galleryController = new Controller();
 
-    public NewAlbumCreation(int idOwner){
+    public NewAlbumCreation(Utente user){
         //Configurazione della finsetra
         setTitle("Accesso utente già registrato");
         setSize(400, 300);
@@ -74,7 +75,8 @@ public class NewAlbumCreation extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    createAlbum(idOwner);
+                    createAlbum(user.getIdUtente());
+                    new UserGallery(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -127,6 +129,7 @@ public class NewAlbumCreation extends JFrame {
         if (success){
             JOptionPane.showMessageDialog(this, "Album aggiunto con successo", "successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
+
         }
         else{
             JOptionPane.showMessageDialog(this, "Errore durante la creazione dell'album", "Errore", JOptionPane.ERROR_MESSAGE);

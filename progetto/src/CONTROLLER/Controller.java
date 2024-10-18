@@ -1,6 +1,7 @@
 package CONTROLLER;
 import DAO.*;
 import ImplPostgresDAO.AlbumPostgressDAO;
+import ImplPostgresDAO.FotoPostgressDAO;
 import ImplPostgresDAO.GalleriaGeolocPostgresDAO;
 import ImplPostgresDAO.UtentePostgressDAO;
 import MODEL.*;
@@ -15,6 +16,7 @@ public class Controller {
 
     private UtentePostgressDAO utenteDAO;
     private AlbumPostgressDAO albumDAO;
+    private FotoPostgressDAO fotoDAO;
 
     private JPanel albumPanel;
 
@@ -26,6 +28,7 @@ public class Controller {
     public Controller(){
         this.utenteDAO = new UtentePostgressDAO();
         this.albumDAO = new AlbumPostgressDAO();
+        this.fotoDAO = new FotoPostgressDAO();
 
         dumpdati();
     }
@@ -73,8 +76,6 @@ public class Controller {
     }
 
         public ArrayList<String> getAlbums (int idUtente) throws SQLException {
-            System.out.println("okkkk");
-            //ArrayList<Album> albums = albumDAO.getUserAlbums(idutente);
 
             return albumDAO.getUserAlbums(idUtente);
         }
@@ -88,5 +89,16 @@ public class Controller {
         boolean flag = albumDAO.createAlbum(nome, idowner, privacy);
         return flag;
         }
+
+        public ArrayList<Foto> getFotoAlbum(int idAlbum) throws SQLException{
+            return fotoDAO.getAlbumFoto(idAlbum);
+        }
+
+        public int getIdAlbum(String nome, int idowner) throws SQLException {
+            return albumDAO.getIdAlbum(nome, idowner);
+        }
+
+
+
 
 }

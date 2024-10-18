@@ -110,4 +110,23 @@ public class AlbumPostgressDAO implements AlbumDAO {
         return albums;
     }
 
+    public int getIdAlbum(String nome, int idowner) throws SQLException {
+
+        int idalbum = -1;
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT idalbum FROM album WHERE idowner = ? and nome = ?");
+        stmt.setInt(1, idowner);
+        stmt.setString(2, nome);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()){
+            idalbum = rs.getInt("idalbum");
+        }
+
+
+        return idalbum;
+
+    }
+
 }

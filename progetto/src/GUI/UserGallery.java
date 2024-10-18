@@ -53,23 +53,7 @@ public class UserGallery extends JFrame {
         gbc.weightx = 1;
         gbc.weighty = 1;
 
-        //Aggiunta degli album al pannello
-        /*for (String album: albums){
-            JButton albumButton = new JButton(album);
-            albumButton.setFont(new Font("Arial", Font.PLAIN, 18));
-            albumButton.setBackground(new Color(172, 174, 178));
-            albumButton.setFocusPainted(false);
-            albumButton.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-            albumButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    new AlbumPage(album);
-                }
-            });
-            albumsPanel.add(albumButton);
-        }*/
-
-        //aggiunta album forse mo funziona
+        //aggiunta album al pannello
         ArrayList<String> userAlbums = gallerycontroller.getAlbums(utente.getIdUtente());
         System.out.println(userAlbums);
 
@@ -80,7 +64,7 @@ public class UserGallery extends JFrame {
 
             int col = 0;
             for (String album : userAlbums){
-                JPanel albumBox = createAlbumBox(album);
+                JPanel albumBox = createAlbumBox(album, utente);
                 albumsPanel.add(albumBox, gbc);
 
                 col++;
@@ -114,7 +98,7 @@ public class UserGallery extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new NewAlbumCreation(utente.getIdUtente());
+                new NewAlbumCreation(utente);
 
 
             }
@@ -145,7 +129,7 @@ public class UserGallery extends JFrame {
 
     }
 
-    private JPanel createAlbumBox(String albumNAme){
+    private JPanel createAlbumBox(String albumNAme, Utente utente){
         JPanel albumBox = new JPanel();
         albumBox.setLayout(new BorderLayout());
         albumBox.setPreferredSize(new Dimension(120,120));
@@ -164,7 +148,11 @@ public class UserGallery extends JFrame {
         albumBox.setCursor(new Cursor(Cursor.HAND_CURSOR));
         albumBox.addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
-                new AlbumPage(albumNAme);
+                try {
+                    new AlbumPage(albumNAme, utente);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -197,70 +185,5 @@ public class UserGallery extends JFrame {
 
         return button;
     }
-
-    private void showalbumDialog(){
-        JComboBox<String> visibityBox;
-        JDialog addAlbumDialog = new JDialog(this, "Aggiundi Album", true);
-        addAlbumDialog.setSize(300, 150);
-        addAlbumDialog.setLocationRelativeTo(this);
-        addAlbumDialog.setLayout(new GridLayout(3,1));
-
-        JTextField albumNameField = new JTextField();
-        addAlbumDialog.add(new JLabel("Nome dell'album: "));
-        addAlbumDialog.add(albumNameField);
-
-        String[] visibilityOption = {"Pubblico, Privato"};
-        visibityBox = new JComboBox<>(visibilityOption);
-
-
-
-        //pannello per i pulsanti
-        JPanel buttonPanel = new JPanel();
-        JButton confirmButton = new JButton("Crea");
-        JButton cancelButton = new JButton("Annulla");
-
-        buttonPanel.add(confirmButton);
-        buttonPanel.add(cancelButton);
-        addAlbumDialog.add(buttonPanel);
-
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String newAlbumName = albumNameField.getText().trim();
-
-                JOptionPane.showMessageDialog(null, "creo nuovo album con nome" +newAlbumName);
-                JButton newAlbumButton = new JButton(newAlbumName);
-                newAlbumButton.setFont(new Font("Arial", Font.PLAIN, 18));
-                newAlbumButton.setBackground(new Color(240,240,240));
-                newAlbumButton.setForeground(Color.BLACK);
-                newAlbumButton.setFocusPainted(false);
-                newAlbumButton.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-                newAlbumButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        new AlbumPage(newAlbumName);
-                    }
-                });
-
-                JPanel albumPanel = (JPanel) getContentPane().getComponent(0);
-                albumPanel.add(newAlbumButton);
-                albumPanel.revalidate();
-                albumPanel.repaint();
-                addAlbumDialog.dispose();
-            }
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addAlbumDialog.dispose();
-            }
-        });
-
-
-       addAlbumDialog.setVisible(true);
-
-    }
-
 
 }
