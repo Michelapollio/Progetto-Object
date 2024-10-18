@@ -25,62 +25,6 @@ public class AlbumPage extends JFrame {
 
         int idalbum = gallerycontroller.getIdAlbum(albumName, utente.getIdUtente());
 
-        /*setSize(800, 600);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        getContentPane().setBackground(Color.WHITE);
-
-        setTitle(albumName);
-        setLayout(new BorderLayout());
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 6, 10, 10));
-        panel.setBackground(Color.WHITE);
-
-        JLabel titleLabel = new JLabel(albumName);
-        titleLabel.setFont(new Font("Arial nova", Font.BOLD, 30));
-        titleLabel.setForeground(Color.DARK_GRAY);
-
-        panel.add(titleLabel, BorderLayout.NORTH);
-
-        ArrayList<Integer> albumphotos = gallerycontroller.getFotoAlbum(idalbum);
-        if (albumphotos.isEmpty()){
-            JOptionPane.showMessageDialog(this, "nessuna foto trovata");
-        } else{
-            panel.removeAll();
-
-            int col = 0;
-            for (Integer foto : albumphotos){
-                JPanel fotoBox = createPhotoBox();
-                panel.add(fotoBox);
-
-            }
-        }
-        JButton logoutButton = new JButton("home");
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    new UserGallery(utente);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-
-        add(logoutButton, BorderLayout.SOUTH);
-
-
-        setVisible(true);
-    }
-
-    private JPanel createPhotoBox(int idalbum){
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        JLabel photoLabel = new JLabel(idalbum, Swin)
-    }*/
-
         String[] column = {"Anteprima", "idfoto", "Dispositivo"};
         DefaultTableModel model = new DefaultTableModel(column, 0);
         fotoTable = new JTable(model);
