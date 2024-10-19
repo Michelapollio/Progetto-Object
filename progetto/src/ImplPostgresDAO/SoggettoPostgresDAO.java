@@ -5,6 +5,7 @@ import DBConnection.ConnessioneDB;
 import MODEL.Soggetto;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SoggettoPostgresDAO implements SoggettoDAO {
@@ -42,6 +43,25 @@ public class SoggettoPostgresDAO implements SoggettoDAO {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Soggetto> getSoggFoto(int idfoto)throws SQLException{
+        ArrayList<Soggetto> soggettilist = new ArrayList<>();
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT s.idsoggetto, s.categoria from soggetto s INNER JOIN soggettofoto sf on s.idsoggetto = sf.idsoggetto where sf.idfoto = ?");
+        stmt.setInt(1, idfoto);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()){
+            int idsogg = rs.getInt("idsoggetto");
+            String categoria = rs.getString("categoria");
+
+            Soggetto sogg = new Soggetto(idsogg, categoria);
+
+            soggettilist.add(sogg);
+        }
+        return soggettilist;
     }
 
 

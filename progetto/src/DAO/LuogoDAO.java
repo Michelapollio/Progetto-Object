@@ -10,5 +10,7 @@ public interface LuogoDAO {
 
     boolean deleteLuogo(int idLuogo) throws SQLException;
 
+    public Luogo getLuogoFoto(int idfoto) throws SQLException;
+
 
 }

@@ -1,9 +1,6 @@
 package CONTROLLER;
 import DAO.*;
-import ImplPostgresDAO.AlbumPostgressDAO;
-import ImplPostgresDAO.FotoPostgressDAO;
-import ImplPostgresDAO.GalleriaGeolocPostgresDAO;
-import ImplPostgresDAO.UtentePostgressDAO;
+import ImplPostgresDAO.*;
 import MODEL.*;
 
 import javax.swing.*;
@@ -17,6 +14,9 @@ public class Controller {
     private UtentePostgressDAO utenteDAO;
     private AlbumPostgressDAO albumDAO;
     private FotoPostgressDAO fotoDAO;
+    private SoggettoPostgresDAO soggettoDAO;
+
+    private LuogoPostgressDAO luogoDAO;
 
     private JPanel albumPanel;
 
@@ -29,6 +29,8 @@ public class Controller {
         this.utenteDAO = new UtentePostgressDAO();
         this.albumDAO = new AlbumPostgressDAO();
         this.fotoDAO = new FotoPostgressDAO();
+        this.luogoDAO = new LuogoPostgressDAO();
+        this.soggettoDAO = new SoggettoPostgresDAO();
 
         dumpdati();
     }
@@ -47,9 +49,6 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
-
-
 
     //funzioni per la classe utente
     public boolean registerUser(String nome, String cognome, String email, String password) throws SQLException {
@@ -97,6 +96,14 @@ public class Controller {
         public int getIdAlbum(String nome, int idowner) throws SQLException {
             return albumDAO.getIdAlbum(nome, idowner);
         }
+
+        public Luogo getFotoLuogo(int idfoto) throws SQLException{
+            return luogoDAO.getLuogoFoto(idfoto);
+        }
+
+    public ArrayList<Soggetto> gettSoggFoto(int idfoto) throws SQLException{
+        return soggettoDAO.getSoggFoto(idfoto);
+    }
 
 
 

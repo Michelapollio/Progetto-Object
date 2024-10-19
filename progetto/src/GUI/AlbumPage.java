@@ -39,8 +39,31 @@ public class AlbumPage extends JFrame {
 
         fotoTable.setCursor(new Cursor(Cursor.HAND_CURSOR));
         fotoTable.addMouseListener(new java.awt.event.MouseAdapter(){
+
             public void mouseClicked(java.awt.event.MouseEvent evt){
-                JOptionPane.showMessageDialog(null, "apertura foto");
+                //JOptionPane.showMessageDialog(null, "apertura foto");
+                //if (evt.getClickCount()==2){
+                    int selectedRow = fotoTable.getSelectedRow();
+                    System.out.println(selectedRow);
+
+                    if (selectedRow != -1){
+                        int idfoto = (int) fotoTable.getValueAt(selectedRow, 1);
+                        System.out.println(idfoto);
+                        try {
+                            new FotoPage(idfoto);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        //JOptionPane.showMessageDialog(null, "apertura foto", "foto", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    else {
+                        JOptionPane.showMessageDialog(null, "nessuna foto selezionata","errore", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                //}
+
             }
         });
 
@@ -50,7 +73,6 @@ public class AlbumPage extends JFrame {
         JScrollPane scrollPane = new JScrollPane(fotoTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        //JButton logoutButton = new JButton("home");
         JButton logoutButton = createStyleButton("HOME");
         logoutButton.addActionListener(new ActionListener() {
             @Override

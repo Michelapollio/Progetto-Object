@@ -6,6 +6,7 @@ import MODEL.Luogo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LuogoPostgressDAO implements LuogoDAO {
@@ -50,5 +51,24 @@ public class LuogoPostgressDAO implements LuogoDAO {
             return true;
         }
         return false;
+    }
+
+    public Luogo getLuogoFoto(int idfoto) throws SQLException {
+        Luogo luogo = null;
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT l.idluogo, l.nome, l.latitudine, l.longitudine from luogo l INNER JOIN luogofoto lf on l.idluogo = lf.idluogo where lf.idfoto = ?");
+        stmt.setInt(1, idfoto);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()){
+            int idluogo = rs.getInt("idluogo");
+            String nome = rs.getString("nome");
+            float latitudine = rs.getFloat("latitudine");
+            float longitudine = rs.getFloat("longitudine");
+
+            luogo = new Luogo(idluogo, nome, latitudine, longitudine);
+        }
+        return luogo;
     }
 }
