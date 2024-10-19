@@ -74,6 +74,10 @@ public class Controller {
         }
     }
 
+    public Utente getInfoUser (String email, String password) throws SQLException {
+        return utenteDAO.findInfoUtente(email, password);
+    }
+
         public ArrayList<String> getAlbums (int idUtente) throws SQLException {
 
             return albumDAO.getUserAlbums(idUtente);

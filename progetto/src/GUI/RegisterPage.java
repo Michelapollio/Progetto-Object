@@ -135,7 +135,8 @@ public class RegisterPage extends JFrame {
         if (flag){
             JOptionPane.showMessageDialog(this, "Registrazione avvenuta con successo");
             Utente nuovouser = new Utente(firstName, lastname, email,password);
-            new UserGallery(nuovouser);
+            Utente nuovouser1 = gallerycontroller.getInfoUser(email, password);
+            new UserGallery(nuovouser1);
             dispose();
         }
         else{

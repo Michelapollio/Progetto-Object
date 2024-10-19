@@ -55,6 +55,7 @@ public class UserGallery extends JFrame {
 
         //aggiunta album al pannello
         ArrayList<String> userAlbums = gallerycontroller.getAlbums(utente.getIdUtente());
+        System.out.println(utente.getIdUtente());
         System.out.println(userAlbums);
 
         if (userAlbums.isEmpty()){
