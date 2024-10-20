@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LuogoPostgressDAO implements LuogoDAO {
 
@@ -70,5 +71,25 @@ public class LuogoPostgressDAO implements LuogoDAO {
             luogo = new Luogo(idluogo, nome, latitudine, longitudine);
         }
         return luogo;
+    }
+
+    public ArrayList<Luogo> getTop3() throws SQLException {
+        ArrayList<Luogo> top3places = new ArrayList<Luogo>();
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT idluogo, nome, latitudine, longitudine FROM top3luogipiùimmortalati");
+
+        ResultSet rs = stmt.executeQuery();
+
+        while(rs.next()){
+            int idluogo = rs.getInt("idluogo");
+            String nome = rs.getString("nome");
+            float latitudine = rs.getFloat("latitudine");
+            float longitudine = rs.getFloat("longitudine");
+
+            Luogo luogo = new Luogo(idluogo, nome, latitudine, longitudine);
+
+            top3places.add(luogo);
+        }
+        return top3places;
     }
 }

@@ -13,5 +13,6 @@ public interface SoggettoDAO {
     boolean deleteSubject(int idsogg) throws SQLException;
 
     public ArrayList<Soggetto> getSoggFoto(int idfoto)throws SQLException;
+    public Soggetto getSoggInfo(int idsogg) throws SQLException;
 
 }

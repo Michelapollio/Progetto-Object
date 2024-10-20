@@ -29,7 +29,7 @@ public class AlbumPage extends JFrame {
         DefaultTableModel model = new DefaultTableModel(column, 0);
         fotoTable = new JTable(model);
 
-        //prima colonna
+
         fotoTable.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer());
         fotoTable.setBackground(Color.WHITE);
         fotoTable.setFont(new Font("Arial nova", Font.PLAIN, 16));
@@ -123,6 +123,8 @@ public class AlbumPage extends JFrame {
 
         return button;
     }
+
+
 
 }
 

@@ -159,5 +159,45 @@ public class FotoPostgressDAO implements FotoDAO {
         return fotolist;
     }
 
+    public ArrayList<Foto> getLuogoFoto(int idluogo) throws SQLException {
+        ArrayList<Foto> fotolist = new ArrayList<>();
 
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo FROM foto f INNER JOIN luogofoto lf on f.idfoto = lf.idfoto WHERE lf.idluogo = ?");
+        stmt.setInt(1, idluogo);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()){
+            int idfoto = rs.getInt("idfoto");
+            int iduser = rs.getInt("idutente");
+            int dispositivo = rs.getInt("iddispositivo");
+
+            Foto foto1 = new Foto(idfoto, iduser, dispositivo);
+
+            fotolist.add(foto1);
+        }
+        return fotolist;
+    }
+
+    public ArrayList<Foto> getSoggFoto(int idsogg) throws SQLException {
+        ArrayList<Foto> fotolist = new ArrayList<>();
+
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo FROM foto f INNER JOIN soggettofoto sf on f.idfoto = sf.idfoto WHERE sf.idsoggetto = ?");
+        stmt.setInt(1, idsogg);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()){
+            int idfoto = rs.getInt("idfoto");
+            int iduser = rs.getInt("idutente");
+            int dispositivo = rs.getInt("iddispositivo");
+
+            Foto foto1 = new Foto(idfoto, iduser, dispositivo);
+
+            fotolist.add(foto1);
+        }
+        return fotolist;
+    }
 }

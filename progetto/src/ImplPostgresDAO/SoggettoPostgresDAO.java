@@ -64,5 +64,22 @@ public class SoggettoPostgresDAO implements SoggettoDAO {
         return soggettilist;
     }
 
+    public Soggetto getSoggInfo(int idsogg) throws SQLException {
+        Soggetto soggetto = null;
+        PreparedStatement stmt;
+        stmt = connection.prepareStatement("SELECT categoria FROM soggetto WHERE idsoggetto = ?");
+        stmt.setInt(1, idsogg);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()){
+            String categoria = rs.getString("categoria");
+
+            soggetto = new Soggetto(idsogg, categoria);
+        }
+
+        return soggetto;
+    }
+
 
 }

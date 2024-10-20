@@ -15,8 +15,8 @@ public class Controller {
     private AlbumPostgressDAO albumDAO;
     private FotoPostgressDAO fotoDAO;
     private SoggettoPostgresDAO soggettoDAO;
-
     private LuogoPostgressDAO luogoDAO;
+    private AlbumConPostgressDAO albumCondDAO;
 
     private JPanel albumPanel;
 
@@ -31,6 +31,8 @@ public class Controller {
         this.fotoDAO = new FotoPostgressDAO();
         this.luogoDAO = new LuogoPostgressDAO();
         this.soggettoDAO = new SoggettoPostgresDAO();
+        this.albumCondDAO = new AlbumConPostgressDAO();
+
 
         dumpdati();
     }
@@ -107,6 +109,39 @@ public class Controller {
 
     public ArrayList<Soggetto> gettSoggFoto(int idfoto) throws SQLException{
         return soggettoDAO.getSoggFoto(idfoto);
+    }
+
+    public ArrayList<Foto> getLuogoFoto(int idluogo)throws SQLException{
+        return fotoDAO.getLuogoFoto(idluogo);
+    }
+
+    public ArrayList<Foto> getFotoSogg(int idsogg) throws SQLException {
+        return fotoDAO.getSoggFoto (idsogg);
+    }
+
+    public Soggetto getSoggInfo(int idsogg) throws SQLException {
+        return soggettoDAO.getSoggInfo(idsogg);
+    }
+
+    public ArrayList<Luogo> top3places ()throws SQLException{
+        return luogoDAO.getTop3();
+    }
+
+    public ArrayList<AlbumCond> getAllAlbumCond(int idUtente) throws SQLException {
+        return albumCondDAO.getAllAlbumCond(idUtente);
+    }
+
+    public boolean addAlbumCondiviso(int idalbum,int idutente) throws SQLException {
+        boolean flag = albumCondDAO.addAlbumC(idalbum, idutente);
+        return flag;
+    }
+
+    public boolean addNewAlbumCondiviso(String nomealbum, int idutente) throws SQLException {
+        return albumCondDAO.addNeWAC(nomealbum, idutente);
+    }
+
+    public ArrayList<Utente> getAllPartecipants(int idalbum) throws SQLException {
+        return albumCondDAO.getPartecipants(idalbum);
     }
 
 

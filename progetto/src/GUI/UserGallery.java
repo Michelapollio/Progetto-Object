@@ -16,7 +16,6 @@ import java.util.List;
 
 public class UserGallery extends JFrame {
 
-
     Controller gallerycontroller = new Controller();
 
     public UserGallery(Utente utente) throws SQLException {
@@ -98,22 +97,58 @@ public class UserGallery extends JFrame {
         addAlbumButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                setVisible(false);
                 new NewAlbumCreation(utente);
 
 
             }
         });
 
+        JButton albumCondivisi = createStyleButton("AlbumCondivisi");
+
+        albumCondivisi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new AlbumCondivisiPage(utente);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
         albumsPanel.revalidate();
         albumsPanel.repaint();
         buttonPanel.add(addAlbumButton);
+        buttonPanel.add(albumCondivisi);
 
-        JButton logoutButton = createStyleButton("logout");
+        JButton top3placesButton = createStyleButton("top3places");
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.insets = new Insets(0,0,0,0);
-        buttonPanel.add(logoutButton, gbc);
+        //top3placesButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        top3placesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new Top3Page();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        buttonPanel.add(top3placesButton, gbc);
+
+
+
+        JButton logoutButton = createStyleButton("logout");
+        logoutButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        //gbc.gridx = 0;
+        //gbc.gridy = 2;
+        //gbc.insets = new Insets(0,0,0,0);
+        //buttonPanel.add(logoutButton, gbc);
 
         logoutButton.addActionListener(new ActionListener() {
             @Override
@@ -122,13 +157,20 @@ public class UserGallery extends JFrame {
                 dispose();
             }
         });
+        JPanel bottomRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        bottomRightPanel.add(logoutButton, gbc);
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
+        add(bottomRightPanel, BorderLayout.SOUTH);
         add(panel);
+
         setVisible(true);
 
     }
+
+
+
 
     private JPanel createAlbumBox(String albumNAme, Utente utente){
         JPanel albumBox = new JPanel();

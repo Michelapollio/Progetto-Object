@@ -19,7 +19,7 @@ public class Album {
         this.privacy = privacy;
     }
 
-    public boolean isPrivacy() {
+    public boolean isPrivate() {
         return privacy;
     }
 

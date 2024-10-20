@@ -89,7 +89,7 @@ public class AlbumPostgressDAO implements AlbumDAO {
         ArrayList<String> albums = new ArrayList<>();
 
         PreparedStatement stmt;
-        stmt = connection.prepareStatement("SELECT nome FROM Album WHERE idowner = ?");
+        stmt = connection.prepareStatement("SELECT nome FROM Album WHERE idowner = ? and privacy = 'false'");
         stmt.setInt(1, idUtente);
 
         ResultSet rs = stmt.executeQuery();
