@@ -1,0 +1,10 @@
+@startuml connection
+package DBConnection{
+    class ConnessioneDB{
+        - ConnessioneDB instance
+        + Connection connection
+
+    + ConnessioneDB getInstance()
+    }
+}
+@enduml

@@ -1,0 +1,65 @@
+@startuml MODEL
+package MODEL{
+    class Utente{
+        - int idUtente
+        - String nome 
+        - String cognome
+        - String email
+        - String password
+
+        + int getIdUtente()
+        + void setIdUtente(int idUtente)
+        + void setNome(String nome)
+        + String getCognome()
+    }
+
+    class Album{
+        - int idAlbum
+        - String nome
+        - int idowner
+        - boolean privacy
+
+        +boolean isPrivate()
+        + String getNome()
+        + void setNome(String nome)
+    }
+    class Foto{
+        - int idFoto
+        - int idowner
+        - int Dispositivo
+
+        + int getIdfoto()
+        + void setidFoto(int idfoto)
+        + int getidDispositivo()
+
+    }
+    class Luogo{
+        - int idLuogo
+        - String nome
+        - float latitudine 
+        - float longitudine
+
+        + int getIdLuogo()
+        + void setNome(String nome)
+        + String getNome()
+        + float getLatitudine()
+        + float getLongitudine()
+    }
+    class AlbumCondiviso{
+    }
+    AlbumCondiviso --|> Album
+    class Soggetto{
+        - int idSOgg
+        - String categoria
+
+        + int getidSogg()
+        + String getCategoria()
+
+    }
+    class Dispositivo{
+        - int iddipositivo
+        - int idowner
+    }
+
+}
+@enduml

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class NewAlbumCreation extends JFrame {
     private JTextField albumNamefield;
-    private AlbumPostgressDAO album;
     private JComboBox<String> visibilityBox;
     Controller galleryController = new Controller();
 

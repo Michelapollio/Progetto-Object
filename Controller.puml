@@ -1,0 +1,28 @@
+@startuml Controller
+package CONTROLLER{
+    class Controller{
+        - UtentePostgressDAO utenteDAO
+        - AlbumPostgressDAO albumDAO
+        - FotoPostgressDAO fotoDAO
+        - SoggettoPostgressDAO soggettoDAO
+        - LuogoPostgressDAO luogoDAO
+        - AlbumCondivisoPostgressDAO albumConDAO
+
+        + boolean registerUser(String nome, String cognome, String email, String password)
+        + Utente getInfoUser(String email, String password)
+        + int getIdAlbum(String nome, int idowner, boolean privacy)
+        + Luogo getLuogo(int idluogo)
+        + ArrayList<Soggetto> getSoggFoto(int idfoto)
+        + ArrayList<Foto> getLuogoFoto (int idluogo)
+        + ArrayList<Foto> getFotoSogg (int idsogg)
+        + Soggetto getSoggInfo (int idSogg)
+        + ArrayList<Luogo> top3places()
+        + ArrayList<AlbumCond> gettAllALbumCond(int idutente)
+        + boolean addAlbumCond(int idalbum, intidutente)
+        + boolean addnewAlbumCond(String nome, int idutente)
+        + ArrayList<Utente> getAllPartecipants(int idalbum)
+
+    }
+
+}
+@enduml

@@ -1,0 +1,76 @@
+@startuml dao
+package DAO{
+    interface UtenteDAO{
+    + boolean aggiungiutenteDAO( String nome, String cognome, String email, String password) 
+    + Utente findInfoUtente (String email, String password)
+
+    }
+
+    interface AlbumDAO{
+    + boolean createAlbum(String titolo, int idOwner, boolean privacy) 
+    +  ArrayList<String> getUserAlbums(int idUtente)
+    +  int getIdAlbum(String nome, int idowner) 
+    }
+
+    interface AlbumCondivisoDAO{
+    + ArrayList<AlbumCond> getAllAlbumCond(int idutente) 
+    + boolean addAlbumC(int idalbum, int idutente)
+    + ArrayList<Utente> getPartecipants(int idalbum) 
+    }
+    interface DispositivoDAO{}
+    interface FotoDAO{
+    public ArrayList<Foto> getAlbumFoto(int idalbum) 
+    public ArrayList<Foto> getLuogoFoto(int idluogo) 
+    public ArrayList<Foto> getSoggFoto(int idsogg) 
+    }
+    interface LuogoDAO{
+    public Luogo getLuogoFoto(int idfoto)
+    public ArrayList<Luogo> getTop3()
+    }
+    interface SoggettoDAO{
+    public ArrayList<Soggetto> getSoggFoto(int idfoto)
+    public Soggetto getSoggInfo(int idsogg) 
+    }
+}
+package ImplementazioneDAO{
+    class UtentePostgressDAO{
+    + boolean aggiungiutenteDAO( String nome, String cognome, String email, String password) 
+    + Utente findInfoUtente (String email, String password)
+
+    }
+    UtentePostgressDAO --|> UtenteDAO
+
+    class AlbumPostgressDAO{
+    + boolean createAlbum(String titolo, int idOwner, boolean privacy) 
+    +  ArrayList<String> getUserAlbums(int idUtente)
+    +  int getIdAlbum(String nome, int idowner) 
+    }
+    AlbumPostgressDAO --|> AlbumDAO
+
+    class AlbumCondivisoPostgressDAO{
+    + ArrayList<AlbumCond> getAllAlbumCond(int idutente) 
+    + boolean addAlbumC(int idalbum, int idutente)
+    + ArrayList<Utente> getPartecipants(int idalbum) 
+    }
+    AlbumCondivisoPostgressDAO ----|> AlbumCondivisoDAO
+    class DispositivoPostgressDAO{}
+    DispositivoPostgressDAO --|> DispositivoDAO
+    class FotoPostgressDAO{
+    public ArrayList<Foto> getAlbumFoto(int idalbum) 
+    public ArrayList<Foto> getLuogoFoto(int idluogo) 
+    public ArrayList<Foto> getSoggFoto(int idsogg) 
+    }
+    FotoPostgressDAO ----|> FotoDAO
+    class LuogoPosgressDAO{
+    + Luogo getLuogoFoto(int idfoto)
+    + ArrayList<Luogo> getTop3()
+    }
+    LuogoPosgressDAO ----|> LuogoDAO
+    class SoggettoPosgressDAO{
+    public ArrayList<Soggetto> getSoggFoto(int idfoto)
+    public Soggetto getSoggInfo(int idsogg) 
+    }
+    SoggettoPosgressDAO ----|> SoggettoDAO
+}
+
+@enduml

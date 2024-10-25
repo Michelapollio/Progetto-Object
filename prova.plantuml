@@ -1,3 +1,279 @@
-@startuml Hello World
-A -> B :  Hello
+@startuml model
+top to bottom direction
+
+package MODEL{
+    class Utente{
+        - int idUtente
+        - String nome 
+        - String cognome
+        - String email
+        - String password
+
+        + int getIdUtente()
+        + void setIdUtente(int idUtente)
+        + void setNome(String nome)
+        + String getCognome()
+    }
+
+    class Album{
+        - int idAlbum
+        - String nome
+        - int idowner
+        - boolean privacy
+
+        +boolean isPrivate()
+        + String getNome()
+        + void setNome(String nome)
+    }
+    class Foto{
+        - int idFoto
+        - int idowner
+        - int Dispositivo
+
+        + int getIdfoto()
+        + void setidFoto(int idfoto)
+        + int getidDispositivo()
+
+    }
+    class Luogo{
+        - int idLuogo
+        - String nome
+        - float latitudine 
+        - float longitudine
+
+        + int getIdLuogo()
+        + void setNome(String nome)
+        + String getNome()
+        + float getLatitudine()
+        + float getLongitudine()
+    }
+    class AlbumCondiviso{
+    }
+    AlbumCondiviso --|> Album
+    class Soggetto{
+        - int idSOgg
+        - String categoria
+
+        + int getidSogg()
+        + String getCategoria()
+
+    }
+    class Dispositivo{
+        - int iddipositivo
+        - int idowner
+    }
+
+}
+package DAO{
+    interface UtenteDAO{
+    + boolean aggiungiutenteDAO( String nome, String cognome, String email, String password) 
+    + Utente findInfoUtente (String email, String password)
+
+    }
+
+    interface AlbumDAO{
+    + boolean createAlbum(String titolo, int idOwner, boolean privacy) 
+    +  ArrayList<String> getUserAlbums(int idUtente)
+    +  int getIdAlbum(String nome, int idowner) 
+    }
+
+    interface AlbumCondivisoDAO{
+    + ArrayList<AlbumCond> getAllAlbumCond(int idutente) 
+    + boolean addAlbumC(int idalbum, int idutente)
+    + ArrayList<Utente> getPartecipants(int idalbum) 
+    }
+    interface DispositivoDAO{}
+    interface FotoDAO{
+    public ArrayList<Foto> getAlbumFoto(int idalbum) 
+    public ArrayList<Foto> getLuogoFoto(int idluogo) 
+    public ArrayList<Foto> getSoggFoto(int idsogg) 
+    }
+    interface LuogoDAO{
+    public Luogo getLuogoFoto(int idfoto)
+    public ArrayList<Luogo> getTop3()
+    }
+    interface SoggettoDAO{
+    public ArrayList<Soggetto> getSoggFoto(int idfoto)
+    public Soggetto getSoggInfo(int idsogg) 
+    }
+}
+package ImplementazioneDAO{
+    class UtentePostgressDAO{
+    + boolean aggiungiutenteDAO( String nome, String cognome, String email, String password) 
+    + Utente findInfoUtente (String email, String password)
+
+    }
+    UtentePostgressDAO --|> UtenteDAO
+
+    class AlbumPostgressDAO{
+    + boolean createAlbum(String titolo, int idOwner, boolean privacy) 
+    +  ArrayList<String> getUserAlbums(int idUtente)
+    +  int getIdAlbum(String nome, int idowner) 
+    }
+    AlbumPostgressDAO --|> AlbumDAO
+
+    class AlbumCondivisoPostgressDAO{
+    + ArrayList<AlbumCond> getAllAlbumCond(int idutente) 
+    + boolean addAlbumC(int idalbum, int idutente)
+    + ArrayList<Utente> getPartecipants(int idalbum) 
+    }
+    AlbumCondivisoPostgressDAO ----|> AlbumCondivisoDAO
+    class DispositivoPostgressDAO{}
+    DispositivoPostgressDAO --|> DispositivoDAO
+    class FotoPostgressDAO{
+    public ArrayList<Foto> getAlbumFoto(int idalbum) 
+    public ArrayList<Foto> getLuogoFoto(int idluogo) 
+    public ArrayList<Foto> getSoggFoto(int idsogg) 
+    }
+    FotoPostgressDAO ----|> FotoDAO
+    class LuogoPosgressDAO{
+    + Luogo getLuogoFoto(int idfoto)
+    + ArrayList<Luogo> getTop3()
+    }
+    LuogoPosgressDAO ----|> LuogoDAO
+    class SoggettoPosgressDAO{
+    public ArrayList<Soggetto> getSoggFoto(int idfoto)
+    public Soggetto getSoggInfo(int idsogg) 
+    }
+    SoggettoPosgressDAO ----|> SoggettoDAO
+}
+package DBConnection{
+    class ConnessioneDB{
+        - ConnessioneDB instance
+        + Connection connection
+
+    + ConnessioneDB getInstance()
+    }
+}
+package CONTROLLER{
+    class Controller{
+        - UtentePostgressDAO utenteDAO
+        - AlbumPostgressDAO albumDAO
+        - FotoPostgressDAO fotoDAO
+        - SoggettoPostgressDAO soggettoDAO
+        - LuogoPostgressDAO luogoDAO
+        - AlbumCondivisoPostgressDAO albumConDAO
+
+        + boolean registerUser(String nome, String cognome, String email, String password)
+        + Utente getInfoUser(String email, String password)
+        + int getIdAlbum(String nome, int idowner, boolean privacy)
+        + Luogo getLuogo(int idluogo)
+        + ArrayList<Soggetto> getSoggFoto(int idfoto)
+        + ArrayList<Foto> getLuogoFoto (int idluogo)
+        + ArrayList<Foto> getFotoSogg (int idsogg)
+        + Soggetto getSoggInfo (int idSogg)
+        + ArrayList<Luogo> top3places()
+        + ArrayList<AlbumCond> gettAllALbumCond(int idutente)
+        + boolean addAlbumCond(int idalbum, intidutente)
+        + boolean addnewAlbumCond(String nome, int idutente)
+        + ArrayList<Utente> getAllPartecipants(int idalbum)
+
+    }
+
+}
+package GUI{
+    class AlbumCondivisi2{
+        - JTable fotoTable
+        - JTable partecipantiTable
+
+        Controller gallerycontroller
+
+        - void loadPhotos(DefaultTableModel model, int idalbum)
+        - void loadUser(DefaultTableModel model, int idalbum)
+        - JButton createStyleButton(String nome)
+    }
+    AlbumCondivisi2 ---|> JFrame
+    class AlbumCondivisiPage{
+        Controller gallerycontroller
+
+        - JPanel albumBox createAlbumBox(String albumname, Utente utente)
+        - JButton createStyleButton(String nome)
+        - Color generateRandomColor()
+    }
+    AlbumCondivisiPage ---|> JFrame
+    class AlbumPage{
+        - JTable fotoTable
+        Controller gallerycontroller
+
+        - void loadPhotos(DefaultTableModel model, int idalbum)
+        - JButton createStyleButton(String text)
+    }
+    AlbumPage ---|> JFrame
+    class FotoPage{
+        - Luogo luogo
+        - ArrayList<Soggetto> soggetti
+        Controller gallerycontroller
+
+        - void setupUI(int idfoto)
+        - void loadSoggettiData(DefaultTableModel tableModel)
+        - JButton createStyleButton(String text)
+        }
+    FotoPage ---|> JFrame
+    class LoginPage{
+        - UtentePostgressDAO utenteDAO
+        - JTextField emailfield
+        - JTextField passwordfield
+
+        - JButton createStyleButton(String text)
+    }
+    LoginPage ---|> JFrame
+    class LuogoPage{
+        - JTable fotoTable
+        - Controller gallerrycontroller
+
+        - void loadPhotos(DefaultTableModel model, int idluogo)
+        - JButton createStyleButton(String text)
+    }
+    LuogoPage ---|> JFrame
+    class MainApp{
+        - JButton createStyleButton(String text)
+    }
+    MainApp ---|> JFrame
+    class NewAlbumCreation{
+        - JTextField albumnameField
+        - JComboBox<String> visibilityBox
+
+        - JButton createStyleButton(String text)
+        - void createAlbum(int idOwner)
+    }
+    NewAlbumCreation ---|> JFrame
+    class RegisterPage{
+        - Controller gallerycontroller
+        - JTextField firstnameField
+        - JTextField lastnameField
+        - JTextField emailfield
+        - JPasswordField passwordfield
+        - JButton registerButton
+        - JButton calncelButton
+
+        - JButton createStyleButton(String text)
+    }
+    RegisterPage ---|> JFrame
+    class SoggPage{
+        - Soggetto sogg
+        - JTable fotoTable
+        - Controller gallerycontroller
+
+        - JButton createStyleButton(String text)
+    }
+    SoggPage ---|> JFrame
+    class Top3Page{
+        - Controller gallerycontroller 
+        - JTable top3table
+
+        - JButton createStyleButton(String text)
+        - void loadPlaces(DefaultTableModel model)
+    }
+    Top3Page ---|> JFrame
+    class UserGallery{
+        - Controller gallerycontroller
+        - JPanel createAlbumBox(String albumName, Utente utente)
+        - Color generateRandomColor()
+        - JButton createStyleButton(String text)
+    }
+    UserGallery ---|> JFrame
+}
+
+
+
 @enduml

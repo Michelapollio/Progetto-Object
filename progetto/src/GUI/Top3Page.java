@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class Top3Page extends JFrame {
     Controller gallerycontroller = new Controller();
-    ArrayList<Luogo> top3places = new ArrayList<>();
     JTable top3table;
 
     public Top3Page() throws SQLException {

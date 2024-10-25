@@ -1,0 +1,104 @@
+@startuml GUI
+package GUI{
+    class AlbumCondivisi2{
+        - JTable fotoTable
+        - JTable partecipantiTable
+
+        Controller gallerycontroller
+
+        - void loadPhotos(DefaultTableModel model, int idalbum)
+        - void loadUser(DefaultTableModel model, int idalbum)
+        - JButton createStyleButton(String nome)
+    }
+    AlbumCondivisi2 ---|> JFrame
+    class AlbumCondivisiPage{
+        Controller gallerycontroller
+
+        - JPanel albumBox createAlbumBox(String albumname, Utente utente)
+        - JButton createStyleButton(String nome)
+        - Color generateRandomColor()
+    }
+    AlbumCondivisiPage ---|> JFrame
+    class AlbumPage{
+        - JTable fotoTable
+        Controller gallerycontroller
+
+        - void loadPhotos(DefaultTableModel model, int idalbum)
+        - JButton createStyleButton(String text)
+    }
+    AlbumPage ---|> JFrame
+    class FotoPage{
+        - Luogo luogo
+        - ArrayList<Soggetto> soggetti
+        Controller gallerycontroller
+
+        - void setupUI(int idfoto)
+        - void loadSoggettiData(DefaultTableModel tableModel)
+        - JButton createStyleButton(String text)
+        }
+    FotoPage ---|> JFrame
+    class LoginPage{
+        - UtentePostgressDAO utenteDAO
+        - JTextField emailfield
+        - JTextField passwordfield
+
+        - JButton createStyleButton(String text)
+    }
+    LoginPage ---|> JFrame
+    class LuogoPage{
+        - JTable fotoTable
+        - Controller gallerrycontroller
+
+        - void loadPhotos(DefaultTableModel model, int idluogo)
+        - JButton createStyleButton(String text)
+    }
+    LuogoPage ---|> JFrame
+    class MainApp{
+        - JButton createStyleButton(String text)
+    }
+    MainApp ---|> JFrame
+    class NewAlbumCreation{
+        - JTextField albumnameField
+        - JComboBox<String> visibilityBox
+
+        - JButton createStyleButton(String text)
+        - void createAlbum(int idOwner)
+    }
+    NewAlbumCreation ---|> JFrame
+    class RegisterPage{
+        - Controller gallerycontroller
+        - JTextField firstnameField
+        - JTextField lastnameField
+        - JTextField emailfield
+        - JPasswordField passwordfield
+        - JButton registerButton
+        - JButton calncelButton
+
+        - JButton createStyleButton(String text)
+    }
+    RegisterPage ---|> JFrame
+    class SoggPage{
+        - Soggetto sogg
+        - JTable fotoTable
+        - Controller gallerycontroller
+
+        - JButton createStyleButton(String text)
+    }
+    SoggPage ---|> JFrame
+    class Top3Page{
+        - Controller gallerycontroller 
+        - JTable top3table
+
+        - JButton createStyleButton(String text)
+        - void loadPlaces(DefaultTableModel model)
+    }
+    Top3Page ---|> JFrame
+    class UserGallery{
+        - Controller gallerycontroller
+        - JPanel createAlbumBox(String albumName, Utente utente)
+        - Color generateRandomColor()
+        - JButton createStyleButton(String text)
+    }
+    UserGallery ---|> JFrame
+}
+@enduml
