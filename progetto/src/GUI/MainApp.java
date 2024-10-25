@@ -22,8 +22,8 @@ public class MainApp extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
 
         //etichetta di benvenuto
-        JLabel label = new JLabel("Benvenuto nella tua galleria", SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.PLAIN, 20));
+        JLabel label = new JLabel("FOTOMAP", SwingConstants.CENTER);
+        label.setFont(new Font("Arial nova", Font.BOLD, 30));
         label.setForeground(Color.DARK_GRAY);
         gbc.gridx = 0;
         gbc.gridy = 0;

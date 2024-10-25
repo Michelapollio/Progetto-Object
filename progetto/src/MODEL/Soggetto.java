@@ -38,7 +38,5 @@ public class Soggetto {
         this.categoria = categoria;
     }
 
-    public void setListasogetti(List<Soggetto> listasogetti) {
-        this.listasogetti = listasogetti;
-    }
+
 }

@@ -34,23 +34,10 @@ public class Controller {
         this.albumCondDAO = new AlbumConPostgressDAO();
 
 
-        dumpdati();
     }
 
     //load dati
-    private void dumpdati(){
-        aggiornaDatabase();
 
-    }
-
-    public void aggiornaDatabase(){
-        GalleriaGeolocDAO galleria = new GalleriaGeolocPostgresDAO();
-        try{
-            galleria.aggiornaDatabaseDAO();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
 
     //funzioni per la classe utente
     public boolean registerUser(String nome, String cognome, String email, String password) throws SQLException {
@@ -76,9 +63,9 @@ public class Controller {
         }
     }
 
-    public Utente getInfoUser (String email, String password) throws SQLException {
+        public Utente getInfoUser (String email, String password) throws SQLException {
         return utenteDAO.findInfoUtente(email, password);
-    }
+        }
 
         public ArrayList<String> getAlbums (int idUtente) throws SQLException {
 

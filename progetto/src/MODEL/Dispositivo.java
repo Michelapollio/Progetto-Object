@@ -7,7 +7,6 @@ public class Dispositivo {
     private int IdDispositivo;
     private int owner;
 
-    public List<Dispositivo> listadispositivi = new ArrayList<>();
 
     public Dispositivo(int IdDispositivo, int idOwner){
         this.IdDispositivo = IdDispositivo;
@@ -30,7 +29,5 @@ public class Dispositivo {
         this.owner = owner;
     }
 
-    public List<Dispositivo> getListadispositivi() {
-        return listadispositivi;
-    }
+
 }
