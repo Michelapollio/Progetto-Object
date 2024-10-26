@@ -10,12 +10,14 @@ public class Foto {
     private Date dataScatto;
     private int idUser;
     private int IdDispositivo;
+    private boolean visibilità;
     Utente utente;
 
-    public Foto(int idfoto, int idUser, int idDispositivo){
+    public Foto(int idfoto, int idUser, int idDispositivo, boolean visibilità){
         this.idfoto = idfoto;
         this.idUser = idUser;
         this.IdDispositivo = idDispositivo;
+        this.visibilità = visibilità;
     }
 
     public int getIdfoto() {
@@ -56,5 +58,12 @@ public class Foto {
 
     public void setIdDispositivo(int idDispositivo) {
         IdDispositivo = idDispositivo;
+    }
+
+    public boolean getVisibilità() {
+        return visibilità;
+    }
+    public void setVisibilità(boolean visibilità) {
+        this.visibilità = visibilità;
     }
 }

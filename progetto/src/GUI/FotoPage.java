@@ -59,6 +59,7 @@ public class FotoPage extends JFrame {
         //etichetta per il luogo di scatto
         if (luogo.getNome().isEmpty()){
             //JLabel luogolabel = new JLabel();
+            luogo.setNome("null");
             infoPanel.add(idlabel);
             //infoPanel.add(luogolabel);
         }
@@ -135,16 +136,40 @@ public class FotoPage extends JFrame {
         JScrollPane scrollPane = new JScrollPane(soggettiTable);
         add(scrollPane, BorderLayout.CENTER);
 
+        JPanel deletePanel = new JPanel();
+
+
         JButton deletefotoButton = createStyleButton("delete");
+        deletePanel.add(deletefotoButton, BorderLayout.EAST);
+        deletefotoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean flag = false;
+                try {
+                    flag = gallerycontroller.deletefotofromalbum(idfoto);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                if (flag){
+                    JOptionPane.showMessageDialog(null,"foto rimossa dall'album", "ok", JOptionPane.INFORMATION_MESSAGE);
+                } else{
+                    JOptionPane.showMessageDialog(null, "errore durante la rimozione della foto", "errore", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         JButton logoutButton = createStyleButton("close");
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 setVisible(false);
             }
         });
 
+
+
+        add(deletePanel, BorderLayout.AFTER_LINE_ENDS);
         add(logoutButton, BorderLayout.SOUTH);
 
         //impostazioni finestra

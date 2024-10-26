@@ -23,115 +23,13 @@ public class FotoPostgressDAO implements FotoDAO {
     }
 
     @Override
-    public boolean aggiungiFotoDAO(Date dataScatto, Boolean stato, int idOwner, int idDispositivo) throws SQLException {
-        PreparedStatement insertFoto;
-        insertFoto = connection.prepareStatement("INSERT INTO Foto (idFoto, DataScatto, Stato, idOwner, idDispositivo) VALUES ( ?, ?, ?, ?)" );
-        insertFoto.setDate(1, dataScatto);
-        insertFoto.setBoolean(2, stato);
-        insertFoto.setInt(3, idOwner);
-        insertFoto.setInt(4, idDispositivo);
-
-        int result = insertFoto.executeUpdate();
-
-        if (result == 1){
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
     public boolean deleteFoto(int idFoto) throws SQLException {
 
         PreparedStatement deleteFoto;
-        deleteFoto = connection.prepareStatement("DELETE FROM Foto WHERE idFoto = ?");
+        deleteFoto = connection.prepareStatement("UPDATE foto SET visibilità = 'false' WHERE idfoto = ?");
         deleteFoto.setInt(1, idFoto);
 
         int result = deleteFoto.executeUpdate();
-        if (result == 1){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean aggiungiTag(int idUtente, int idFoto) throws SQLException{
-        PreparedStatement stmt;
-        stmt = connection.prepareStatement("INSERT INTO tag(idUtente, idFoto) VALUES  (?, ?)");
-        stmt.setInt(1, idUtente);
-        stmt.setInt(2, idFoto);
-
-        int result = stmt.executeUpdate();
-        if (result == 1){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean rimuoviTag(int idUtente, int idFoto) throws SQLException{
-        PreparedStatement stmt;
-        stmt = connection.prepareStatement("DELETE FROM Tag WHERE idFoto = ? AND idUtente = ?");
-        stmt.setInt(1, idFoto);
-        stmt.setInt(2, idUtente);
-
-        int result = stmt.executeUpdate();
-        if (result == 1){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean aggiungiSogettoFoto(int idSogg, int idFoto) throws SQLException{
-        PreparedStatement stmt;
-        stmt = connection.prepareStatement("INSERT INTO soggettofoto(idSogg, idFoto) VALUES  (?, ?)");
-        stmt.setInt(1, idSogg);
-        stmt.setInt(2, idFoto);
-
-        int result = stmt.executeUpdate();
-        if (result == 1){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean eliminaSogettoFoto(int idSogg, int idFoto) throws SQLException{
-        PreparedStatement stmt;
-        stmt = connection.prepareStatement("DELETE FROM soggettofoto WHERE idSogg = ? AND idFoto = ?");
-        stmt.setInt(1, idSogg);
-        stmt.setInt(2, idFoto);
-
-        int result = stmt.executeUpdate();
-        if (result == 1){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean aggiungiLuogoFoto(int idLuogo, int idFoto) throws SQLException{
-        PreparedStatement stmt;
-        stmt = connection.prepareStatement("INSERT INTO soggettofoto(idLuogo, idFoto) VALUES  (?, ?)");
-        stmt.setInt(1, idLuogo);
-        stmt.setInt(2, idFoto);
-
-        int result = stmt.executeUpdate();
-        if (result == 1){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteFoto(int idalbum, int idFoto) throws SQLException{
-        PreparedStatement stmt;
-        stmt = connection.prepareStatement("DELETE FROM fotoalbum WHERE idfoto = ? AND idalbum = ?");
-        stmt.setInt(1, idFoto);
-        stmt.setInt(2, idalbum);
-
-        int result = stmt.executeUpdate();
         if (result == 1){
             return true;
         }
@@ -142,7 +40,7 @@ public class FotoPostgressDAO implements FotoDAO {
         ArrayList<Foto> fotolist = new ArrayList<>();
 
         PreparedStatement stmt;
-        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo from foto f INNER JOIN fotoalbum fa on f.idfoto = fa.idfoto where fa.idalbum = ?");
+        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo, f.visibilità from foto f INNER JOIN fotoalbum fa on f.idfoto = fa.idfoto where fa.idalbum = ? and f.visibilità = 'true'");
         stmt.setInt(1, idalbum);
 
         ResultSet rs = stmt.executeQuery();
@@ -151,8 +49,9 @@ public class FotoPostgressDAO implements FotoDAO {
             int idfoto = rs.getInt("idfoto");
             int iduser = rs.getInt("idutente");
             int dispositivo = rs.getInt("iddispositivo");
+            boolean visibilità = rs.getBoolean("visibilità");
 
-            Foto foto1 = new Foto(idfoto, iduser, dispositivo);
+            Foto foto1 = new Foto(idfoto, iduser, dispositivo, visibilità);
 
             fotolist.add(foto1);
         }
@@ -163,7 +62,7 @@ public class FotoPostgressDAO implements FotoDAO {
         ArrayList<Foto> fotolist = new ArrayList<>();
 
         PreparedStatement stmt;
-        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo FROM foto f INNER JOIN luogofoto lf on f.idfoto = lf.idfoto WHERE lf.idluogo = ?");
+        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo, f.visibilità FROM foto f INNER JOIN luogofoto lf on f.idfoto = lf.idfoto WHERE lf.idluogo = ?");
         stmt.setInt(1, idluogo);
 
         ResultSet rs = stmt.executeQuery();
@@ -172,8 +71,9 @@ public class FotoPostgressDAO implements FotoDAO {
             int idfoto = rs.getInt("idfoto");
             int iduser = rs.getInt("idutente");
             int dispositivo = rs.getInt("iddispositivo");
+            boolean visibilità = rs.getBoolean("visibilità");
 
-            Foto foto1 = new Foto(idfoto, iduser, dispositivo);
+            Foto foto1 = new Foto(idfoto, iduser, dispositivo, visibilità);
 
             fotolist.add(foto1);
         }
@@ -184,7 +84,7 @@ public class FotoPostgressDAO implements FotoDAO {
         ArrayList<Foto> fotolist = new ArrayList<>();
 
         PreparedStatement stmt;
-        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo FROM foto f INNER JOIN soggettofoto sf on f.idfoto = sf.idfoto WHERE sf.idsoggetto = ?");
+        stmt = connection.prepareStatement("SELECT f.idfoto, f.idutente, f.iddispositivo, f.visibilità FROM foto f INNER JOIN soggettofoto sf on f.idfoto = sf.idfoto WHERE sf.idsoggetto = ?");
         stmt.setInt(1, idsogg);
 
         ResultSet rs = stmt.executeQuery();
@@ -193,8 +93,9 @@ public class FotoPostgressDAO implements FotoDAO {
             int idfoto = rs.getInt("idfoto");
             int iduser = rs.getInt("idutente");
             int dispositivo = rs.getInt("iddispositivo");
+            boolean visibilità = rs.getBoolean("visibilità");
 
-            Foto foto1 = new Foto(idfoto, iduser, dispositivo);
+            Foto foto1 = new Foto(idfoto, iduser, dispositivo, visibilità);
 
             fotolist.add(foto1);
         }

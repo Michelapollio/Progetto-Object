@@ -123,7 +123,8 @@ public class LoginPage extends JFrame {
 
                 }else {
                     JOptionPane.showMessageDialog(null, "Email o password errati !", "Errore", JOptionPane.ERROR_MESSAGE);
-                    dispose();
+                    setVisible(false);
+                    new LoginPage();
 
                 }
             }

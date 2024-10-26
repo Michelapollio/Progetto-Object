@@ -140,8 +140,8 @@ public class Controller {
         return albumCondDAO.getPartecipants(idalbum);
     }
 
-    public boolean deletefotofromalbum(int idfoto, int idalbum) throws SQLException {
-        boolean flag = fotoDAO.deleteFoto(idalbum, idfoto);
+    public boolean deletefotofromalbum(int idfoto) throws SQLException {
+        boolean flag = fotoDAO.deleteFoto(idfoto);
 
         if (flag){
             System.out.println("foto eliminata dall'album");
