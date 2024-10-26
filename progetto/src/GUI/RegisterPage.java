@@ -120,17 +120,6 @@ public class RegisterPage extends JFrame {
             return;
         }
 
-        //controlla se l'utente è già registrato
-        /*if (gallerycontroller.registerUser(firstName, lastname, email, password)) {
-            JOptionPane.showMessageDialog(this, "Sei già registrato!");
-        } else {
-            //addUserToDatabase(firstName, lastname, email, password);
-            JOptionPane.showMessageDialog(this, "Registrazione avvenuta con successo");
-            new UserGallery(firstName);
-            dispose();
-            //}
-
-        }*/
         boolean flag = gallerycontroller.registerUser(firstName, lastname, email, password);
         if (flag){
             JOptionPane.showMessageDialog(this, "Registrazione avvenuta con successo");
