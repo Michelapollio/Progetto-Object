@@ -24,6 +24,7 @@ public class FotoPage extends JFrame {
         luogo = gallerycontroller.getFotoLuogo(idfoto);
         soggetti = gallerycontroller.gettSoggFoto(idfoto);
 
+
         setupUI(idfoto);
 
     }
@@ -133,6 +134,8 @@ public class FotoPage extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(soggettiTable);
         add(scrollPane, BorderLayout.CENTER);
+
+        JButton deletefotoButton = createStyleButton("delete");
 
         JButton logoutButton = createStyleButton("close");
         logoutButton.addActionListener(new ActionListener() {

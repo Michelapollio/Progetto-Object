@@ -94,6 +94,15 @@ public class Controller {
             return luogoDAO.getLuogoFoto(idfoto);
         }
 
+    public boolean SearchUserinDB(String email, String password) throws SQLException {
+        if (email.isEmpty()||password.isEmpty()){
+            System.out.println("inserire credenziali");
+        }
+        boolean flag = utenteDAO.isUtentePresent(email, password);
+
+        return flag;
+    }
+
     public ArrayList<Soggetto> gettSoggFoto(int idfoto) throws SQLException{
         return soggettoDAO.getSoggFoto(idfoto);
     }
@@ -129,6 +138,18 @@ public class Controller {
 
     public ArrayList<Utente> getAllPartecipants(int idalbum) throws SQLException {
         return albumCondDAO.getPartecipants(idalbum);
+    }
+
+    public boolean deletefotofromalbum(int idfoto, int idalbum) throws SQLException {
+        boolean flag = fotoDAO.deleteFoto(idalbum, idfoto);
+
+        if (flag){
+            System.out.println("foto eliminata dall'album");
+        }else {
+            System.out.println("errore");
+        }
+
+        return flag;
     }
 
 

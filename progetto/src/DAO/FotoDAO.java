@@ -22,7 +22,7 @@ public interface FotoDAO {
 
     boolean aggiungiLuogoFoto(int idLuogo, int idFoto) throws SQLException;
 
-    boolean deleteLuogoFoto(int idLuogo, int idFoto) throws SQLException;
+    boolean deleteFoto(int idLuogo, int idFoto) throws SQLException;
 
     public ArrayList<Foto> getAlbumFoto(int idalbum) throws SQLException;
     public ArrayList<Foto> getLuogoFoto(int idluogo) throws SQLException;

@@ -125,11 +125,11 @@ public class FotoPostgressDAO implements FotoDAO {
     }
 
     @Override
-    public boolean deleteLuogoFoto(int idLuogo, int idFoto) throws SQLException{
+    public boolean deleteFoto(int idalbum, int idFoto) throws SQLException{
         PreparedStatement stmt;
-        stmt = connection.prepareStatement("DELETE FROM soggettofoto WHERE idLuogo = ? AND idFoto = ?");
-        stmt.setInt(1, idLuogo);
-        stmt.setInt(2, idFoto);
+        stmt = connection.prepareStatement("DELETE FROM fotoalbum WHERE idfoto = ? AND idalbum = ?");
+        stmt.setInt(1, idFoto);
+        stmt.setInt(2, idalbum);
 
         int result = stmt.executeUpdate();
         if (result == 1){

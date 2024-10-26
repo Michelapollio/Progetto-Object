@@ -1,5 +1,6 @@
 package GUI;
 
+import CONTROLLER.Controller;
 import ImplPostgresDAO.UtentePostgressDAO;
 import MODEL.Utente;
 
@@ -7,14 +8,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginPage extends JFrame {
 
+    Controller gallerycontroller = new Controller();
 
-    private UtentePostgressDAO utenteDAO = new UtentePostgressDAO();
+    //private UtentePostgressDAO utenteDAO = new UtentePostgressDAO();
 
     private JTextField emailfield;
     private JPasswordField passwordfield;
@@ -95,7 +98,8 @@ public class LoginPage extends JFrame {
                 boolean flag;
 
                 try {
-                    flag = utenteDAO.isUtentePresent(email, password);
+                    flag = gallerycontroller.SearchUserinDB(email, password);
+                    //flag = utenteDAO.isUtentePresent(email, password);
                     System.out.println(flag);
 
                 } catch (SQLException ex) {
